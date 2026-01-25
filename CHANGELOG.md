@@ -2,6 +2,13 @@
 
 English | [中文](./CHANGELOG.zh.md)
 
+## 1.21.4 - 2026-01-25
+
+### Fixes
+- `baoyu-post-to-wechat`: adds Windows compatibility—uses `fileURLToPath` for correct path resolution, replaces system-dependent copy/paste tools (osascript/xdotool) with CDP keyboard events for cross-platform support.
+- `baoyu-post-to-wechat`: fixes regressions from Windows compatibility PR—corrects broken `-fixed` filename references, restores frontmatter quote stripping, restores `--title` CLI parameter, fixes summary extraction to skip headings/quotes/lists, fixes argument parsing for single-dash flags, removes debug logs.
+- `baoyu-article-illustrator`, `baoyu-cover-image`, `baoyu-xhs-images`: removes opacity option from watermark configuration.
+
 ## 1.21.3 - 2026-01-24
 
 ### Refactor
