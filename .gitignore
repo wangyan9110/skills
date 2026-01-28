@@ -152,3 +152,8 @@ slide-deck/
 infographic/
 illustrations/
 comic/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
