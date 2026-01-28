@@ -2,6 +2,11 @@
 
 English | [中文](./CHANGELOG.zh.md)
 
+## 1.24.2 - 2026-01-28
+
+### Refactor
+- `baoyu-image-gen`: default to sequential generation; parallel available on request.
+
 ## 1.24.1 - 2026-01-28
 
 ### Features
