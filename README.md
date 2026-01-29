@@ -535,7 +535,28 @@ Post content to WeChat Official Account (微信公众号). Two modes available:
 /baoyu-post-to-wechat 文章 --html article.html
 ```
 
-Prerequisites: Google Chrome installed. First run requires QR code login (session preserved).
+**Publishing Methods**:
+
+| Method | Speed | Requirements |
+|--------|-------|--------------|
+| API (Recommended) | Fast | API credentials |
+| Browser | Slow | Chrome, login session |
+
+**API Configuration** (for faster publishing):
+
+```bash
+# Add to .baoyu-skills/.env (project-level) or ~/.baoyu-skills/.env (user-level)
+WECHAT_APP_ID=your_app_id
+WECHAT_APP_SECRET=your_app_secret
+```
+
+To obtain credentials:
+1. Visit https://developers.weixin.qq.com/platform/
+2. Go to: 我的业务 → 公众号 → 开发密钥
+3. Create development key and copy AppID/AppSecret
+4. Add your machine's IP to the whitelist
+
+**Browser Method** (no API setup needed): Requires Google Chrome. First run opens browser for QR code login (session preserved).
 
 ### AI Generation Skills
 

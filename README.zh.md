@@ -535,7 +535,28 @@ npx skills add jimliu/baoyu-skills
 /baoyu-post-to-wechat 文章 --html article.html
 ```
 
-前置要求：已安装 Google Chrome，首次运行需扫码登录（登录状态会保存）
+**发布方式**：
+
+| 方式 | 速度 | 要求 |
+|------|------|------|
+| API（推荐） | 快 | API 凭证 |
+| 浏览器 | 慢 | Chrome，登录会话 |
+
+**API 配置**（更快的发布方式）：
+
+```bash
+# 添加到 .baoyu-skills/.env（项目级）或 ~/.baoyu-skills/.env（用户级）
+WECHAT_APP_ID=你的AppID
+WECHAT_APP_SECRET=你的AppSecret
+```
+
+获取凭证方法：
+1. 访问 https://developers.weixin.qq.com/platform/
+2. 进入：我的业务 → 公众号 → 开发密钥
+3. 添加开发密钥，复制 AppID 和 AppSecret
+4. 将你操作的机器 IP 加入白名单
+
+**浏览器方式**（无需 API 配置）：需已安装 Google Chrome，首次运行需扫码登录（登录状态会保存）
 
 ### AI 生成技能 (AI Generation Skills)
 
