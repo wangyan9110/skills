@@ -2,6 +2,11 @@
 
 English | [中文](./CHANGELOG.zh.md)
 
+## 1.27.0 - 2026-02-07
+
+### Features
+- `baoyu-image-gen`: add POE provider support with nano-banana-pro model for AI image generation.
+
 ## 1.26.1 - 2026-01-29
 
 ### Features
