@@ -1,11 +1,11 @@
 ---
 name: baoyu-image-gen
-description: AI image generation with OpenAI, Google and DashScope APIs. Supports text-to-image, reference images, aspect ratios. Sequential by default; parallel generation available on request. Use when user asks to generate, create, or draw images.
+description: AI image generation with OpenAI, Google, DashScope and POE APIs. Supports text-to-image, reference images, aspect ratios. Sequential by default; parallel generation available on request. Use when user asks to generate, create, or draw images.
 ---
 
 # Image Generation (AI SDK)
 
-Official API-based image generation. Supports OpenAI, Google and DashScope (阿里通义万象) providers.
+Official API-based image generation. Supports OpenAI, Google, DashScope (阿里通义万象) and POE providers.
 
 ## Script Directory
 
@@ -66,6 +66,9 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "A cat" --image out.png --provi
 
 # DashScope (阿里通义万象)
 npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "一只可爱的猫" --image out.png --provider dashscope
+
+# POE (nano-banana-pro)
+npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道，日本浮世绘风格" --image out.png --provider poe
 ```
 
 ## Options
@@ -75,7 +78,7 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "一只可爱的猫" --image ou
 | `--prompt <text>`, `-p` | Prompt text |
 | `--promptfiles <files...>` | Read prompt from files (concatenated) |
 | `--image <path>` | Output image path (required) |
-| `--provider google\|openai\|dashscope` | Force provider (default: google) |
+| `--provider google\|openai\|dashscope\|poe` | Force provider (default: google) |
 | `--model <id>`, `-m` | Model ID |
 | `--ar <ratio>` | Aspect ratio (e.g., `16:9`, `1:1`, `4:3`) |
 | `--size <WxH>` | Size (e.g., `1024x1024`) |
@@ -92,12 +95,15 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "一只可爱的猫" --image ou
 | `OPENAI_API_KEY` | OpenAI API key |
 | `GOOGLE_API_KEY` | Google API key |
 | `DASHSCOPE_API_KEY` | DashScope API key (阿里云) |
+| `POE_API_KEY` | POE API key |
 | `OPENAI_IMAGE_MODEL` | OpenAI model override |
 | `GOOGLE_IMAGE_MODEL` | Google model override |
 | `DASHSCOPE_IMAGE_MODEL` | DashScope model override (default: z-image-turbo) |
+| `POE_IMAGE_MODEL` | POE model override (default: nano-banana-pro) |
 | `OPENAI_BASE_URL` | Custom OpenAI endpoint |
 | `GOOGLE_BASE_URL` | Custom Google endpoint |
 | `DASHSCOPE_BASE_URL` | Custom DashScope endpoint |
+| `POE_BASE_URL` | Custom POE endpoint |
 
 **Load Priority**: CLI args > env vars > `<cwd>/.baoyu-skills/.env` > `~/.baoyu-skills/.env`
 
