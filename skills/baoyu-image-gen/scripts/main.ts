@@ -252,7 +252,8 @@ function detectProvider(args: CliArgs): Provider {
   const hasDashscope = !!process.env.DASHSCOPE_API_KEY;
   const hasPoe = !!process.env.POE_API_KEY;
 
-  const available = [hasGoogle && "google", hasOpenai && "openai", hasDashscope && "dashscope", hasPoe && "poe"].filter(Boolean) as Provider[];
+  // Priority order: POE > Google > DashScope > OpenAI
+  const available = [hasPoe && "poe", hasGoogle && "google", hasDashscope && "dashscope", hasOpenai && "openai"].filter(Boolean) as Provider[];
 
   if (available.length === 1) return available[0]!;
   if (available.length > 1) return available[0]!;

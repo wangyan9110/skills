@@ -78,7 +78,7 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道�
 | `--prompt <text>`, `-p` | Prompt text |
 | `--promptfiles <files...>` | Read prompt from files (concatenated) |
 | `--image <path>` | Output image path (required) |
-| `--provider google\|openai\|dashscope\|poe` | Force provider (default: google) |
+| `--provider google\|openai\|dashscope\|poe` | Force provider (default: poe) |
 | `--model <id>`, `-m` | Model ID |
 | `--ar <ratio>` | Aspect ratio (e.g., `16:9`, `1:1`, `4:3`) |
 | `--size <WxH>` | Size (e.g., `1024x1024`) |
@@ -111,7 +111,7 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道�
 
 1. `--provider` specified → use it
 2. Only one API key available → use that provider
-3. Multiple available → default to Google
+3. Multiple available → default priority: POE > Google > DashScope > OpenAI
 
 ## Quality Presets
 
