@@ -2,6 +2,12 @@
 
 English | [中文](./CHANGELOG.zh.md)
 
+## 1.28.0 - 2026-02-07
+
+### Features
+- `baoyu-image-gen`: add OpenRouter provider support (default priority: OpenRouter > Google > DashScope > POE > OpenAI).
+- `baoyu-image-gen`: set POE as default provider when multiple API keys available.
+
 ## 1.27.0 - 2026-02-07
 
 ### Features

@@ -2,6 +2,12 @@
 
 [English](./CHANGELOG.md) | 中文
 
+## 1.28.0 - 2026-02-07
+
+### 新功能
+- `baoyu-image-gen`：新增 OpenRouter provider 支持（默认优先级：OpenRouter > Google > DashScope > POE > OpenAI）。
+- `baoyu-image-gen`：多个 API key 可用时默认使用 POE provider。
+
 ## 1.27.0 - 2026-02-07
 
 ### 新功能
