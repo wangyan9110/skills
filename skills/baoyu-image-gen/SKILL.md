@@ -1,11 +1,11 @@
 ---
 name: baoyu-image-gen
-description: AI image generation with OpenAI, Google, DashScope and POE APIs. Supports text-to-image, reference images, aspect ratios. Sequential by default; parallel generation available on request. Use when user asks to generate, create, or draw images.
+description: AI image generation with OpenRouter (default), OpenAI, Google, DashScope and POE APIs. Supports text-to-image, reference images, aspect ratios. Sequential by default; parallel generation available on request. Use when user asks to generate, create, or draw images.
 ---
 
 # Image Generation (AI SDK)
 
-Official API-based image generation. Supports OpenAI, Google, DashScope (阿里通义万象) and POE providers.
+Official API-based image generation. Supports OpenRouter (default, recommended), OpenAI, Google, DashScope (阿里通义万象) and POE providers.
 
 ## Script Directory
 
@@ -69,6 +69,9 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "一只可爱的猫" --image ou
 
 # POE (nano-banana-pro)
 npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道，日本浮世绘风格" --image out.png --provider poe
+
+# OpenRouter
+npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "A futuristic city" --image out.png --provider openrouter
 ```
 
 ## Options
@@ -78,7 +81,7 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道�
 | `--prompt <text>`, `-p` | Prompt text |
 | `--promptfiles <files...>` | Read prompt from files (concatenated) |
 | `--image <path>` | Output image path (required) |
-| `--provider google\|openai\|dashscope\|poe` | Force provider (default: poe) |
+| `--provider openrouter\|google\|openai\|dashscope\|poe` | Force provider (default: openrouter) |
 | `--model <id>`, `-m` | Model ID |
 | `--ar <ratio>` | Aspect ratio (e.g., `16:9`, `1:1`, `4:3`) |
 | `--size <WxH>` | Size (e.g., `1024x1024`) |
@@ -96,14 +99,17 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道�
 | `GOOGLE_API_KEY` | Google API key |
 | `DASHSCOPE_API_KEY` | DashScope API key (阿里云) |
 | `POE_API_KEY` | POE API key |
+| `OPENROUTER_API_KEY` | OpenRouter API key |
 | `OPENAI_IMAGE_MODEL` | OpenAI model override |
 | `GOOGLE_IMAGE_MODEL` | Google model override |
 | `DASHSCOPE_IMAGE_MODEL` | DashScope model override (default: z-image-turbo) |
 | `POE_IMAGE_MODEL` | POE model override (default: nano-banana-pro) |
+| `OPENROUTER_IMAGE_MODEL` | OpenRouter model override (default: google/gemini-3-pro-image-preview) |
 | `OPENAI_BASE_URL` | Custom OpenAI endpoint |
 | `GOOGLE_BASE_URL` | Custom Google endpoint |
 | `DASHSCOPE_BASE_URL` | Custom DashScope endpoint |
 | `POE_BASE_URL` | Custom POE endpoint |
+| `OPENROUTER_BASE_URL` | Custom OpenRouter endpoint |
 
 **Load Priority**: CLI args > env vars > `<cwd>/.baoyu-skills/.env` > `~/.baoyu-skills/.env`
 
@@ -111,7 +117,7 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts --prompt "19世纪东京繁忙的街道�
 
 1. `--provider` specified → use it
 2. Only one API key available → use that provider
-3. Multiple available → default priority: POE > Google > DashScope > OpenAI
+3. Multiple available → default priority: **OpenRouter** > Google > DashScope > POE > OpenAI
 
 ## Quality Presets
 

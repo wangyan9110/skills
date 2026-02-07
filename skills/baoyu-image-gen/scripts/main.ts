@@ -14,7 +14,7 @@ Options:
   -p, --prompt <text>       Prompt text
   --promptfiles <files...>  Read prompt from files (concatenated)
   --image <path>            Output image path (required)
-  --provider google|openai|dashscope|poe  Force provider (auto-detect by default)
+  --provider google|openai|dashscope|poe|openrouter  Force provider (auto-detect by default)
   -m, --model <id>          Model ID
   --ar <ratio>              Aspect ratio (e.g., 16:9, 1:1, 4:3)
   --size <WxH>              Size (e.g., 1024x1024)
@@ -35,10 +35,12 @@ Environment variables:
   GOOGLE_IMAGE_MODEL        Default Google model (gemini-3-pro-image-preview)
   DASHSCOPE_IMAGE_MODEL     Default DashScope model (z-image-turbo)
   POE_IMAGE_MODEL           Default POE model (nano-banana-pro)
+  OPENROUTER_IMAGE_MODEL    Default OpenRouter model (google/gemini-3-pro-image-preview)
   OPENAI_BASE_URL           Custom OpenAI endpoint
   GOOGLE_BASE_URL           Custom Google endpoint
   DASHSCOPE_BASE_URL        Custom DashScope endpoint
   POE_BASE_URL              Custom POE endpoint
+  OPENROUTER_BASE_URL       Custom OpenRouter endpoint
 
 Env file load order: CLI args > process.env > <cwd>/.baoyu-skills/.env > ~/.baoyu-skills/.env`);
 }
@@ -111,7 +113,7 @@ function parseArgs(argv: string[]): CliArgs {
 
     if (a === "--provider") {
       const v = argv[++i];
-      if (v !== "google" && v !== "openai" && v !== "dashscope" && v !== "poe") throw new Error(`Invalid provider: ${v}`);
+      if (v !== "google" && v !== "openai" && v !== "dashscope" && v !== "poe" && v !== "openrouter") throw new Error(`Invalid provider: ${v}`);
       out.provider = v;
       continue;
     }
@@ -247,19 +249,20 @@ function normalizeOutputImagePath(p: string): string {
 function detectProvider(args: CliArgs): Provider {
   if (args.provider) return args.provider;
 
+  const hasOpenrouter = !!process.env.OPENROUTER_API_KEY;
   const hasGoogle = !!(process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY);
-  const hasOpenai = !!process.env.OPENAI_API_KEY;
   const hasDashscope = !!process.env.DASHSCOPE_API_KEY;
   const hasPoe = !!process.env.POE_API_KEY;
+  const hasOpenai = !!process.env.OPENAI_API_KEY;
 
-  // Priority order: POE > Google > DashScope > OpenAI
-  const available = [hasPoe && "poe", hasGoogle && "google", hasDashscope && "dashscope", hasOpenai && "openai"].filter(Boolean) as Provider[];
+  // Priority order: OpenRouter > Google > DashScope > POE > OpenAI
+  const available = [hasOpenrouter && "openrouter", hasGoogle && "google", hasDashscope && "dashscope", hasPoe && "poe", hasOpenai && "openai"].filter(Boolean) as Provider[];
 
   if (available.length === 1) return available[0]!;
   if (available.length > 1) return available[0]!;
 
   throw new Error(
-    "No API key found. Set GOOGLE_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, DASHSCOPE_API_KEY, or POE_API_KEY.\n" +
+    "No API key found. Set OPENROUTER_API_KEY, GOOGLE_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, DASHSCOPE_API_KEY, or POE_API_KEY.\n" +
       "Create ~/.baoyu-skills/.env or <cwd>/.baoyu-skills/.env with your keys."
   );
 }
@@ -278,6 +281,9 @@ async function loadProviderModule(provider: Provider): Promise<ProviderModule> {
   }
   if (provider === "poe") {
     return (await import("./providers/poe")) as ProviderModule;
+  }
+  if (provider === "openrouter") {
+    return (await import("./providers/openrouter")) as ProviderModule;
   }
   return (await import("./providers/openai")) as ProviderModule;
 }
